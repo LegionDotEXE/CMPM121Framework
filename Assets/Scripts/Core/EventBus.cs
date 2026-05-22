@@ -33,7 +33,7 @@ public class EventBus
     public void DoPlayerDamaged(Vector3 position, Damage dmg)
     {
         OnPlayerDamaged?.Invoke(position, dmg);
-        Debug.Log("invoked player damage!");
+        Debug.Log(ClassInfo.Instance.classes[0].First);
     }
 
     public void DoEnemyKilled(GameObject enemy)

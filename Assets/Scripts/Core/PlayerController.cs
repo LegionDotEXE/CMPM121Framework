@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,21 +35,15 @@ public class PlayerController : MonoBehaviour
         if (!d.ContainsKey("wave")) d.Add("wave", 1);
         else d["wave"] = 1;
 
-        int maxHP = RPNEvaluator.RPNEvaluator.Evaluate("95 wave 5 * +", d);
-        int maxMana = RPNEvaluator.RPNEvaluator.Evaluate("90 wave 10 * +", d);
-        int manaReg = RPNEvaluator.RPNEvaluator.Evaluate("10 wave +", d);
-        int spellPower = RPNEvaluator.RPNEvaluator.Evaluate("wave 10 *", d);
-        speed = RPNEvaluator.RPNEvaluator.Evaluate("5", d);
-
-        spellcaster = new SpellCaster(maxMana, manaReg, Hittable.Team.PLAYER);
-        spellcaster.power = spellPower;
+        spellcaster = new SpellCaster(1, 1, Hittable.Team.PLAYER);
         manaRoutine = StartCoroutine(spellcaster.ManaRegeneration());
 
-        hp = new Hittable(maxHP, Hittable.Team.PLAYER, gameObject);
+        hp = new Hittable(1, Hittable.Team.PLAYER, gameObject);
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
-        healthui.SetHealth(hp);
+        ScaleStats(d["wave"]);
+
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spell);
     }
@@ -72,6 +67,15 @@ public class PlayerController : MonoBehaviour
         spellcaster.power = spellPower;
 
         healthui.SetHealth(hp);
+    }
+
+    public void ScaleStats(JObject PlayerClass)
+    {
+        PlayerClass.Properties();
+        foreach (JProperty Property in PlayerClass.Properties())
+        {
+            Debug.Log(Property.Name);
+        }
     }
 
     void Update()
