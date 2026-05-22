@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -33,7 +34,6 @@ public class EventBus
     public void DoPlayerDamaged(Vector3 position, Damage dmg)
     {
         OnPlayerDamaged?.Invoke(position, dmg);
-        Debug.Log(ClassInfo.Instance.classes[0].First);
     }
 
     public void DoEnemyKilled(GameObject enemy)

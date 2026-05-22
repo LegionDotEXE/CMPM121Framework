@@ -6,7 +6,7 @@ using System.Linq;
 
 public class ClassInfo
 {
-    public List<JObject> classes = new();
+    public List<JToken> classes; 
     private static ClassInfo theInstance;
     public static ClassInfo Instance {  get 
         {
@@ -18,10 +18,6 @@ public class ClassInfo
 
     private ClassInfo()
     {
-        IEnumerable<JToken> classTokens = JObject.Parse(File.ReadAllText("./Assets/Resources/classes.json"))
-           .Children()
-           .ToList();
-        foreach (JObject playerClass in classTokens)
-            classes.Add(playerClass);
+        classes = JToken.Parse(File.ReadAllText("./Assets/Resources/classes.json")).Children().Values().ToList();
     }
 }

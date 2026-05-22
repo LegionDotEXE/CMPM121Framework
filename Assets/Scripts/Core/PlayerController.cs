@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -69,12 +71,19 @@ public class PlayerController : MonoBehaviour
         healthui.SetHealth(hp);
     }
 
-    public void ScaleStats(JObject PlayerClass)
+    public void ScaleStats(JToken PlayerClass)
     {
-        PlayerClass.Properties();
-        foreach (JProperty Property in PlayerClass.Properties())
+        Dictionary<string, int> d = GameManager.Instance.dict;
+
+        foreach (var attribute in PlayerClass.Children())
         {
-            Debug.Log(Property.Name);
+            //att["sprite"];
+            if(attribute["health"] != null) hp.SetMaxHP(RPNEvaluator.RPNEvaluator.Evaluate(attribute["health"].ToString(), d));
+            if (attribute["mana"] != null) spellcaster.max_mana = RPNEvaluator.RPNEvaluator.Evaluate(attribute["mana"].ToString(), d);
+            if (attribute["mana"] != null) spellcaster.mana = Mathf.Min(spellcaster.mana, spellcaster.max_mana);
+            if (attribute["mana_regeneration"] != null) spellcaster.mana_reg = RPNEvaluator.RPNEvaluator.Evaluate(attribute["mana_regeneration"].ToString(), d);
+            if (attribute["spellpower"] != null) spellcaster.power = RPNEvaluator.RPNEvaluator.Evaluate(attribute["spellpower"].ToString(), d);
+            if (attribute["speed"] != null) speed = RPNEvaluator.RPNEvaluator.Evaluate(attribute["speed"].ToString(), d);
         }
     }
 
