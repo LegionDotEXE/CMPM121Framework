@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
-        ScaleStats(ClassInfo.Instance.GetClass(ClassInfo.Instance.playerClass));
+        ScaleStats(ClassInfo.Instance.GetClass(ClassInfo.Instance.selectedClass));
 
         healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);

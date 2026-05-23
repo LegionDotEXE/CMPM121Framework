@@ -8,7 +8,7 @@ using UnityEngine;
 public class ClassInfo
 {
     public List<JToken> classes;
-    public string playerClass;
+    public string selectedClass;
     private static ClassInfo theInstance;
     public static ClassInfo Instance
     {
@@ -33,6 +33,6 @@ public class ClassInfo
     private ClassInfo()
     {
         classes = JToken.Parse(File.ReadAllText("./Assets/Resources/classes.json")).Children().ToList();
-        playerClass = "mage";
+        selectedClass = "mage";
     }
 }

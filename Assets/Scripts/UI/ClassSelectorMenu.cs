@@ -47,9 +47,9 @@ public class ClassSelectorMenu : MonoBehaviour
         if (button == null) return;
 
         int i = 0;
-        foreach (var entry in ClassInfo.Instance.classData)
+        foreach (var entry in ClassInfo.Instance.classes)
         {
-            string className = entry.Key;
+            string className = ((JProperty)entry).Name;
             GameObject selector = Instantiate(button, playerClassUI.transform);
             selector.transform.localPosition = new Vector3(0, 40 - i * 40, 0);
 
