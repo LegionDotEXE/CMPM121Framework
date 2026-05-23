@@ -111,9 +111,21 @@ public class ClassSelectorMenu : MonoBehaviour
         classChosen = true;
         ClassInfo.Instance.selectedClass = className;
 
-        int spriteID = ((JProperty)ClassInfo.Instance.GetClass(className)).Value["sprite"].ToObject<int>();
-        Image sprite = GameManager.Instance.player.AddComponent<Image>();
-        GameManager.Instance.playerSpriteManager.PlaceSprite(spriteID, sprite);
+        // change player sprite using SpriteRenderer
+        JToken classValue = ((JProperty)ClassInfo.Instance.GetClass(className)).Value;
+        if (classValue["sprite"] != null)
+        {
+            int spriteID = classValue["sprite"].ToObject<int>();
+            SpriteRenderer sr = GameManager.Instance.player.GetComponentInChildren<SpriteRenderer>();
+            if (sr == null)
+                Debug.LogError("SpriteRenderer not found on player");
+            else
+                sr.sprite = GameManager.Instance.playerSpriteManager.Get(spriteID);
+        }
+
+        //int spriteID = ((JProperty)ClassInfo.Instance.GetClass(className)).Value["sprite"].ToObject<int>();
+        //Image sprite = GameManager.Instance.player.AddComponent<Image>();
+        //GameManager.Instance.playerSpriteManager.PlaceSprite(spriteID, sprite);
 
         if (messageText != null)
             messageText.text = className + " selected!";
