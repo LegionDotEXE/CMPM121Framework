@@ -1,4 +1,6 @@
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,7 +66,10 @@ public class ClassSelectorMenu : MonoBehaviour
         msgRect.offsetMax = Vector2.zero;
 
         // one button per class
-        List<string> classes = new List<string>(ClassInfo.Instance.classData.Keys);
+        //List<string> classes = new List<string>(ClassInfo.Instance.classData.Keys);
+        List<string> classes = ClassInfo.Instance.classes
+            .Select(c => ((JProperty)c).Name)
+            .ToList();
         for (int i = 0; i < classes.Count; i++)
         {
             string className = classes[i];

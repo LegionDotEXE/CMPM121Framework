@@ -44,19 +44,22 @@ public class PlayerController : MonoBehaviour
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
-        ScaleStats(ClassInfo.Instance.GetClass(ClassInfo.Instance.selectedClass));
+        ScaleStats(d["wave"]);
 
-        healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
-        //spellui.SetSpell(spellcaster.spell);
         spellui.SetSpell(spellcaster.spell, spellcaster.activeSpellIndex);
     }
 
     public void ScaleStats(int wave)
     {
         Dictionary<string, int> d = GameManager.Instance.dict;
+        d["wave"] = wave;
 
-        JToken classData = ClassInfo.Instance.classData[ClassInfo.Instance.selectedClass];
+        // use GetClass instead of classData since ClassInfo uses List<JToken>
+        JProperty classEntry = (JProperty)ClassInfo.Instance.GetClass(ClassInfo.Instance.selectedClass);
+        JToken classData = classEntry.Value;
+
+        //JToken classData = ClassInfo.Instance.classData[ClassInfo.Instance.selectedClass];
 
         int maxHP = RPNEvaluator.RPNEvaluator.Evaluate(classData["health"].ToString(), d);
         int maxMana = RPNEvaluator.RPNEvaluator.Evaluate(classData["mana"].ToString(), d);
@@ -76,7 +79,7 @@ public class PlayerController : MonoBehaviour
         spellcaster.mana = Mathf.Min(spellcaster.mana, maxMana);
         spellcaster.mana_reg = manaReg;
         spellcaster.power = spellPower;
-        
+
         //Debug.Log("Class: " + ClassInfo.Instance.selectedClass +
         //  " HP: " + maxHP +
         //  " Mana: " + maxMana +
@@ -90,15 +93,17 @@ public class PlayerController : MonoBehaviour
     public void ScaleStats(JToken PlayerClass)
     {
         Dictionary<string, int> d = GameManager.Instance.dict;
-        if (PlayerClass == null) return;
-        JProperty pClass = (JProperty)PlayerClass;
-        //att["sprite"];
-        if(pClass.Value["health"] != null) hp.SetMaxHP(RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["health"].ToString(), d));
-        if (pClass.Value["mana"] != null) spellcaster.max_mana = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["mana"].ToString(), d);
-        if (pClass.Value["mana"] != null) spellcaster.mana = Mathf.Min(spellcaster.mana, spellcaster.max_mana);
-        if (pClass.Value["mana_regeneration"] != null) spellcaster.mana_reg = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["mana_regeneration"].ToString(), d);
-        if (pClass.Value["spellpower"] != null) spellcaster.power = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["spellpower"].ToString(), d);
-        if (pClass.Value["speed"] != null) speed = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["speed"].ToString(), d);
+
+        foreach (var attribute in PlayerClass.Children())
+        {
+            //att["sprite"];
+            if (attribute["health"] != null) hp.SetMaxHP(RPNEvaluator.RPNEvaluator.Evaluate(attribute["health"].ToString(), d));
+            if (attribute["mana"] != null) spellcaster.max_mana = RPNEvaluator.RPNEvaluator.Evaluate(attribute["mana"].ToString(), d);
+            if (attribute["mana"] != null) spellcaster.mana = Mathf.Min(spellcaster.mana, spellcaster.max_mana);
+            if (attribute["mana_regeneration"] != null) spellcaster.mana_reg = RPNEvaluator.RPNEvaluator.Evaluate(attribute["mana_regeneration"].ToString(), d);
+            if (attribute["spellpower"] != null) spellcaster.power = RPNEvaluator.RPNEvaluator.Evaluate(attribute["spellpower"].ToString(), d);
+            if (attribute["speed"] != null) speed = RPNEvaluator.RPNEvaluator.Evaluate(attribute["speed"].ToString(), d);
+        }
     }
 
     void Update()
@@ -110,7 +115,6 @@ public class PlayerController : MonoBehaviour
     {
         if (spellcaster == null) return;
         spellcaster.NextSpell();
-        //spellui.SetSpell(spellcaster.spell);
         spellui.SetSpell(spellcaster.spell, spellcaster.activeSpellIndex);
     }
 
@@ -118,7 +122,6 @@ public class PlayerController : MonoBehaviour
     {
         if (spellcaster == null) return;
         spellcaster.PrevSpell();
-        //spellui.SetSpell(spellcaster.spell);
         spellui.SetSpell(spellcaster.spell, spellcaster.activeSpellIndex);
     }
 
