@@ -3,13 +3,12 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEngine;
 
 public class ClassInfo
 {
     public List<JToken> classes;
-    public Dictionary<string, JToken> classData;
-    public string selectedClass = "mage";
-
+    public string selectedClass;
     private static ClassInfo theInstance;
     public static ClassInfo Instance
     {
@@ -21,14 +20,19 @@ public class ClassInfo
         }
     }
 
+    public JToken GetClass(string name)
+    {
+        foreach (var c in classes)
+        {
+            JProperty casterClass = (JProperty)c;
+            if (name == casterClass.Name) return c;
+        }
+        return null;
+    }
+
     private ClassInfo()
     {
-        classes = JToken.Parse(File.ReadAllText("./Assets/Resources/classes.json")).Children().Values().ToList();
-        JObject raw = JObject.Parse(File.ReadAllText("./Assets/Resources/classes.json"));
-        classData = new Dictionary<string, JToken>();
-        foreach (var entry in raw)
-        {
-            classData[entry.Key] = entry.Value;
-        }
+        classes = JToken.Parse(File.ReadAllText("./Assets/Resources/classes.json")).Children().ToList();
+        selectedClass = "mage";
     }
 }
