@@ -65,6 +65,8 @@ public class Spell
         spellPage = Grimoire.Instance.GetPage(Grimoire.Chapter.SPELL, name);
         if (spellPage != null)
         {
+            //update dictionary
+            GameManager.Instance.Define("power", owner.power);
             this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
                 .ToList()
                 .ForEach(p => { if (spellPage[p.Name] != null) p.SetValue(this, spellPage[p.Name].ToObject(p.FieldType)); });
@@ -294,6 +296,8 @@ public class SpellModifier : Spell
         JToken modPage = Grimoire.Instance.GetPage(Grimoire.Chapter.MODIFIER, name);
         if (modPage != null)
         {
+            //update dictionary
+            GameManager.Instance.Define("power", owner.power);
             this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
                 .ToList()
                 .ForEach(p => { if (modPage[p.Name] != null) p.SetValue(this, modPage[p.Name].ToObject(p.FieldType)); });
