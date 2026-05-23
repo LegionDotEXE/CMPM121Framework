@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -64,7 +65,9 @@ public class ClassSelectorMenu : MonoBehaviour
         msgRect.offsetMax = Vector2.zero;
 
         // one button per class
-        List<string> classes = new List<string>(ClassInfo.Instance.classData.Keys);
+        List<string> classes = new List<string>();
+        foreach (var pClass in ClassInfo.Instance.classes)
+            classes.Add(((Newtonsoft.Json.Linq.JProperty)pClass).Name);
         for (int i = 0; i < classes.Count; i++)
         {
             string className = classes[i];
@@ -106,6 +109,10 @@ public class ClassSelectorMenu : MonoBehaviour
     {
         classChosen = true;
         ClassInfo.Instance.selectedClass = className;
+
+        int spriteID = ((JProperty)ClassInfo.Instance.GetClass(className)).Value["sprite"].ToObject<int>();
+        Image sprite = GameManager.Instance.player.AddComponent<Image>();
+        GameManager.Instance.playerSpriteManager.PlaceSprite(spriteID, sprite);
 
         if (messageText != null)
             messageText.text = className + " selected!";
