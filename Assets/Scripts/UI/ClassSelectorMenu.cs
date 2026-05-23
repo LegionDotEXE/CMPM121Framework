@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,66 +6,113 @@ using UnityEngine.UI;
 public class ClassSelectorMenu : MonoBehaviour
 {
     public GameObject playerClassUI;
-    public GameObject button;
-    public string playerClass;
-    private TextMeshProUGUI buttonText;
+    public GameObject difficultySelector;
+
     private TextMeshProUGUI messageText;
+    private bool classChosen = false;
 
     void Start()
     {
-        buttonText = playerClassUI.GetComponentInChildren<TextMeshProUGUI>(true);
-        GameObject message = new GameObject("Class Select");
-        message.transform.SetParent(playerClassUI.transform, false);
-        messageText = message.AddComponent<TextMeshProUGUI>();
-        messageText.alignment = TextAlignmentOptions.Center;
-        messageText.fontSize = 32;
-        messageText.color = Color.black;
+        // hide difficulty until class is picked
+        if (difficultySelector != null)
+            difficultySelector.SetActive(false);
 
-        RectTransform rect = messageText.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0.15f, 0.55f);
-        rect.anchorMax = new Vector2(0.85f, 0.85f);
-        rect.offsetMin = Vector2.zero;
-        rect.offsetMax = Vector2.zero;
-
-        ClassInfo.Instance.selectedClass = "mage";
+        // show class panel
+        if (playerClassUI != null)
+            playerClassUI.SetActive(true);
 
         CreateMenu();
-
-        playerClassUI.SetActive(false);
     }
 
     void Update()
     {
-        if(playerClassUI.activeSelf == false && GameManager.Instance.state == GameManager.GameState.PREGAME)
-            playerClassUI.SetActive(true);
-        else if(GameManager.Instance.state != GameManager.GameState.PREGAME) playerClassUI.SetActive(false);
-
-    }
-    public void CreateMenu()
-    {
-        if (button == null) return;
-
-        int i = 0;
-        foreach (var entry in ClassInfo.Instance.classData)
+        // once game starts, hide class panel
+        if (GameManager.Instance.state != GameManager.GameState.PREGAME)
         {
-            string className = entry.Key;
-            GameObject selector = Instantiate(button, playerClassUI.transform);
-            selector.transform.localPosition = new Vector3(0, 40 - i * 40, 0);
+            if (playerClassUI != null)
+                playerClassUI.SetActive(false);
+        }
+    }
 
-            TextMeshProUGUI label = selector.GetComponentInChildren<TextMeshProUGUI>();
-            if (label != null) label.text = "Class: " + className;
+    void CreateMenu()
+    {
+        // title text
+        GameObject title = new GameObject("Title");
+        title.transform.SetParent(playerClassUI.transform, false);
+        TextMeshProUGUI titleText = title.AddComponent<TextMeshProUGUI>();
+        titleText.text = "Choose your class";
+        titleText.fontSize = 28;
+        titleText.color = Color.black;
+        titleText.alignment = TextAlignmentOptions.Center;
+        RectTransform titleRect = title.GetComponent<RectTransform>();
+        titleRect.anchorMin = new Vector2(0.2f, 0.7f);
+        titleRect.anchorMax = new Vector2(0.8f, 0.9f);
+        titleRect.offsetMin = Vector2.zero;
+        titleRect.offsetMax = Vector2.zero;
+
+        // confirmation message
+        GameObject message = new GameObject("Message");
+        message.transform.SetParent(playerClassUI.transform, false);
+        messageText = message.AddComponent<TextMeshProUGUI>();
+        messageText.fontSize = 20;
+        messageText.color = Color.black;
+        messageText.alignment = TextAlignmentOptions.Center;
+        RectTransform msgRect = message.GetComponent<RectTransform>();
+        msgRect.anchorMin = new Vector2(0.2f, 0.55f);
+        msgRect.anchorMax = new Vector2(0.8f, 0.68f);
+        msgRect.offsetMin = Vector2.zero;
+        msgRect.offsetMax = Vector2.zero;
+
+        // one button per class
+        List<string> classes = new List<string>(ClassInfo.Instance.classData.Keys);
+        for (int i = 0; i < classes.Count; i++)
+        {
+            string className = classes[i];
+            float xMin = 0.1f + i * 0.28f;
+            float xMax = xMin + 0.24f;
+
+            GameObject btn = new GameObject("Btn_" + className);
+            btn.transform.SetParent(playerClassUI.transform, false);
+
+            Image img = btn.AddComponent<Image>();
+            img.color = new Color(0.75f, 0.85f, 1f);
+            Button button = btn.AddComponent<Button>();
+
+            RectTransform rt = btn.GetComponent<RectTransform>();
+            rt.anchorMin = new Vector2(xMin, 0.35f);
+            rt.anchorMax = new Vector2(xMax, 0.53f);
+            rt.offsetMin = Vector2.zero;
+            rt.offsetMax = Vector2.zero;
+
+            GameObject labelObj = new GameObject("Label");
+            labelObj.transform.SetParent(btn.transform, false);
+            TextMeshProUGUI label = labelObj.AddComponent<TextMeshProUGUI>();
+            label.text = className;
+            label.fontSize = 22;
+            label.color = Color.black;
+            label.alignment = TextAlignmentOptions.Center;
+            RectTransform labelRect = labelObj.GetComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = Vector2.zero;
+            labelRect.offsetMax = Vector2.zero;
 
             string captured = className;
-            selector.GetComponent<Button>().onClick.RemoveAllListeners();
-            selector.GetComponent<Button>().onClick.AddListener(() => SetClass(captured));
-            i++;
+            button.onClick.AddListener(() => SetClass(captured));
         }
     }
 
     public void SetClass(string className)
     {
+        classChosen = true;
         ClassInfo.Instance.selectedClass = className;
+
         if (messageText != null)
-            messageText.text = "Class: " + className + " selected!";
+            messageText.text = className + " selected!";
+
+        if (playerClassUI != null)
+            playerClassUI.SetActive(false);
+        if (difficultySelector != null)
+            difficultySelector.SetActive(true);
     }
 }

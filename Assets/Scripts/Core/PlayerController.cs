@@ -47,7 +47,8 @@ public class PlayerController : MonoBehaviour
         ScaleStats(d["wave"]);
 
         manaui.SetSpellCaster(spellcaster);
-        spellui.SetSpell(spellcaster.spell);
+        //spellui.SetSpell(spellcaster.spell);
+        spellui.SetSpell(spellcaster.spell, spellcaster.activeSpellIndex);
     }
 
     public void ScaleStats(int wave)
@@ -55,11 +56,19 @@ public class PlayerController : MonoBehaviour
         Dictionary<string, int> d = GameManager.Instance.dict;
         d["wave"] = wave;
 
-        int maxHP = RPNEvaluator.RPNEvaluator.Evaluate("95 wave 5 * +", d);
-        int maxMana = RPNEvaluator.RPNEvaluator.Evaluate("90 wave 10 * +", d);
-        int manaReg = RPNEvaluator.RPNEvaluator.Evaluate("10 wave +", d);
-        int spellPower = RPNEvaluator.RPNEvaluator.Evaluate("wave 10 *", d);
-        speed = RPNEvaluator.RPNEvaluator.Evaluate("5", d);
+        JToken classData = ClassInfo.Instance.classData[ClassInfo.Instance.selectedClass];
+
+        int maxHP = RPNEvaluator.RPNEvaluator.Evaluate(classData["health"].ToString(), d);
+        int maxMana = RPNEvaluator.RPNEvaluator.Evaluate(classData["mana"].ToString(), d);
+        int manaReg = RPNEvaluator.RPNEvaluator.Evaluate(classData["mana_regeneration"].ToString(), d);
+        int spellPower = RPNEvaluator.RPNEvaluator.Evaluate(classData["spellpower"].ToString(), d);
+        speed = RPNEvaluator.RPNEvaluator.Evaluate(classData["speed"].ToString(), d);
+
+        //int maxHP = RPNEvaluator.RPNEvaluator.Evaluate("95 wave 5 * +", d);
+        //int maxMana = RPNEvaluator.RPNEvaluator.Evaluate("90 wave 10 * +", d);
+        //int manaReg = RPNEvaluator.RPNEvaluator.Evaluate("10 wave +", d);
+        //int spellPower = RPNEvaluator.RPNEvaluator.Evaluate("wave 10 *", d);
+        //speed = RPNEvaluator.RPNEvaluator.Evaluate("5", d);
 
         hp.SetMaxHP(maxHP);
 
@@ -67,6 +76,13 @@ public class PlayerController : MonoBehaviour
         spellcaster.mana = Mathf.Min(spellcaster.mana, maxMana);
         spellcaster.mana_reg = manaReg;
         spellcaster.power = spellPower;
+        
+        //Debug.Log("Class: " + ClassInfo.Instance.selectedClass +
+        //  " HP: " + maxHP +
+        //  " Mana: " + maxMana +
+        //  " ManaReg: " + manaReg +
+        //  " Power: " + spellPower +
+        //  " Speed: " + speed);
 
         healthui.SetHealth(hp);
     }
@@ -96,14 +112,16 @@ public class PlayerController : MonoBehaviour
     {
         if (spellcaster == null) return;
         spellcaster.NextSpell();
-        spellui.SetSpell(spellcaster.spell);
+        //spellui.SetSpell(spellcaster.spell);
+        spellui.SetSpell(spellcaster.spell, spellcaster.activeSpellIndex);
     }
 
     void OnPrevious(InputValue value)
     {
         if (spellcaster == null) return;
         spellcaster.PrevSpell();
-        spellui.SetSpell(spellcaster.spell);
+        //spellui.SetSpell(spellcaster.spell);
+        spellui.SetSpell(spellcaster.spell, spellcaster.activeSpellIndex);
     }
 
     void OnAttack(InputValue value)
