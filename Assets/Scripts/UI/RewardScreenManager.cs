@@ -33,8 +33,10 @@ public class RewardScreenManager : MonoBehaviour
         messageText.color = Color.black;
 
         RectTransform rect = messageText.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0.15f, 0.55f);
-        rect.anchorMax = new Vector2(0.85f, 0.85f);
+        //rect.anchorMin = new Vector2(0.15f, 0.55f);
+        //rect.anchorMax = new Vector2(0.85f, 0.85f);
+        rect.anchorMin = new Vector2(0.15f, 0.70f);
+        rect.anchorMax = new Vector2(0.85f, 0.90f);
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
 
@@ -46,15 +48,19 @@ public class RewardScreenManager : MonoBehaviour
         spellInfoText.color = Color.black;
 
         RectTransform spellRect = spellInfoText.GetComponent<RectTransform>();
-        spellRect.anchorMin = new Vector2(0.15f, 0.30f);
-        spellRect.anchorMax = new Vector2(0.85f, 0.55f);
+        //spellRect.anchorMin = new Vector2(0.15f, 0.30f);
+        //spellRect.anchorMax = new Vector2(0.85f, 0.55f);
+        spellRect.anchorMin = new Vector2(0.15f, 0.55f);
+        spellRect.anchorMax = new Vector2(0.85f, 0.70f);
         spellRect.offsetMin = Vector2.zero;
         spellRect.offsetMax = Vector2.zero;
 
-        takeButton = CreateButton("Take Spell", new Vector2(0.25f, 0.15f), new Vector2(0.45f, 0.28f));
+        //takeButton = CreateButton("Take Spell", new Vector2(0.25f, 0.15f), new Vector2(0.45f, 0.28f));
+        takeButton = CreateButton("Take Spell", new Vector2(0.25f, 0.44f), new Vector2(0.45f, 0.54f));
         takeButton.GetComponent<Button>().onClick.AddListener(TakeSpell);
 
-        skipButton = CreateButton("Skip", new Vector2(0.55f, 0.15f), new Vector2(0.75f, 0.28f));
+        //skipButton = CreateButton("Skip", new Vector2(0.55f, 0.15f), new Vector2(0.75f, 0.28f));
+        skipButton = CreateButton("Skip", new Vector2(0.55f, 0.44f), new Vector2(0.75f, 0.54f));
         skipButton.GetComponent<Button>().onClick.AddListener(SkipSpell);
 
         GameObject relicHeader = new GameObject("Relic Header");
@@ -66,6 +72,8 @@ public class RewardScreenManager : MonoBehaviour
         relicHeaderText.text = "Choose a Relic:";
 
         RectTransform relicHeaderRect = relicHeaderText.GetComponent<RectTransform>();
+        //relicHeaderRect.anchorMin = new Vector2(0.15f, 0.35f);
+        //relicHeaderRect.anchorMax = new Vector2(0.85f, 0.43f);
         relicHeaderRect.anchorMin = new Vector2(0.15f, 0.35f);
         relicHeaderRect.anchorMax = new Vector2(0.85f, 0.43f);
         relicHeaderRect.offsetMin = Vector2.zero;
@@ -119,7 +127,7 @@ public class RewardScreenManager : MonoBehaviour
             if (shouldShow && GameManager.Instance.state == GameManager.GameState.WAVEEND)
             {
                 GenerateReward();
-                if (GameManager.Instance.wave % 3 == 0)
+                if (GameManager.Instance.wave % 1 == 0)
                     GenerateRelicReward();
                 else
                     HideRelicUI();
@@ -179,8 +187,10 @@ public class RewardScreenManager : MonoBehaviour
             float xMin = 0.1f + i * 0.3f;
             float xMax = xMin + 0.25f;
 
+            //GameObject btn = CreateButton(relic.name + "\n" + relic.description,
+            //    new Vector2(xMin, 0.10f), new Vector2(xMax, 0.33f));
             GameObject btn = CreateButton(relic.name + "\n" + relic.description,
-                new Vector2(xMin, 0.10f), new Vector2(xMax, 0.33f));
+                new Vector2(xMin, 0.02f), new Vector2(xMax, 0.33f));
 
             int capturedIndex = i;
             btn.GetComponent<Button>().onClick.AddListener(() => PickRelic(capturedIndex));
