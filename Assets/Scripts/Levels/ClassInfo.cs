@@ -10,12 +10,14 @@ public class ClassInfo
     public List<JToken> classes;
     public string playerClass;
     private static ClassInfo theInstance;
-    public static ClassInfo Instance {  get 
+    public static ClassInfo Instance
+    {
+        get
         {
             if (theInstance == null)
                 theInstance = new ClassInfo();
-            return theInstance; 
-        } 
+            return theInstance;
+        }
     }
 
     public JToken GetClass(string name)

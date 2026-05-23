@@ -114,6 +114,8 @@ public class EnemySpawner : MonoBehaviour
             GameManager.Instance.countdown--;
         }
         GameManager.Instance.state = GameManager.GameState.INWAVE;
+        EventBus.Instance.DoWaveStart(dict["wave"]);
+
 
         List<Spawn> spawns = LevelSelector.Instance.GetSpawn(LevelSelector.Instance.Difficulty);
         if(spawns != null)

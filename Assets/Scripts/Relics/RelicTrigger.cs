@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class RelicTrigger : EventBus
+public class RelicTrigger
 {
     public Action OnTriggered;
 
@@ -49,14 +49,18 @@ public class StandStillTrigger : RelicTrigger
     {
         // EventBus.Instance.OnPlayerMoved += HandlePlayerMoved;
         CoroutineManager.Instance.Run(Tick());
+        PlayerController pc = GameManager.Instance.player.GetComponent<PlayerController>();
+        if (pc != null) pc.unit.OnMove += HandlePlayerMoved;
     }
 
     public override void Unregister()
     {
         // EventBus.Instance.OnPlayerMoved -= HandlePlayerMoved;
+        PlayerController pc = GameManager.Instance.player.GetComponent<PlayerController>();
+        if (pc != null) pc.unit.OnMove -= HandlePlayerMoved;
     }
 
-    void HandlePlayerMoved()
+    void HandlePlayerMoved(float distance)
     {
         stillTime = 0f;
         if (isActive)
