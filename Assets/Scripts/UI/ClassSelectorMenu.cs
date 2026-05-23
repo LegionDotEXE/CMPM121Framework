@@ -42,9 +42,8 @@ public class ClassSelectorMenu : MonoBehaviour
         List<JToken> classes = ClassInfo.Instance.classes;
         foreach (var c in classes)
         {
-            string className = c.ToString();
-            int index = className.IndexOf(":");
-            GameObject nameDisplay = new GameObject(className.Substring(0, index));
+            JProperty casterClass = (JProperty)c;
+            GameObject nameDisplay = new GameObject(casterClass.Name);
             messageText = nameDisplay.GetComponent<TextMeshProUGUI>();
         }
     }

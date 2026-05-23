@@ -44,16 +44,16 @@ public class PlayerController : MonoBehaviour
         hp.OnDeath += Die;
         hp.team = Hittable.Team.PLAYER;
 
-        ScaleStats(d["wave"]);
+        ScaleStats(ClassInfo.Instance.GetClass(ClassInfo.Instance.playerClass));
 
+        healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spell);
-    }
+    }//ScaleStats(ClassInfo.Instance.GetClass(ClassInfo.Instance.playerClass));
 
     public void ScaleStats(int wave)
     {
         Dictionary<string, int> d = GameManager.Instance.dict;
-        d["wave"] = wave;
 
         int maxHP = RPNEvaluator.RPNEvaluator.Evaluate("95 wave 5 * +", d);
         int maxMana = RPNEvaluator.RPNEvaluator.Evaluate("90 wave 10 * +", d);
@@ -74,17 +74,15 @@ public class PlayerController : MonoBehaviour
     public void ScaleStats(JToken PlayerClass)
     {
         Dictionary<string, int> d = GameManager.Instance.dict;
-
-        foreach (var attribute in PlayerClass.Children())
-        {
-            //att["sprite"];
-            if(attribute["health"] != null) hp.SetMaxHP(RPNEvaluator.RPNEvaluator.Evaluate(attribute["health"].ToString(), d));
-            if (attribute["mana"] != null) spellcaster.max_mana = RPNEvaluator.RPNEvaluator.Evaluate(attribute["mana"].ToString(), d);
-            if (attribute["mana"] != null) spellcaster.mana = Mathf.Min(spellcaster.mana, spellcaster.max_mana);
-            if (attribute["mana_regeneration"] != null) spellcaster.mana_reg = RPNEvaluator.RPNEvaluator.Evaluate(attribute["mana_regeneration"].ToString(), d);
-            if (attribute["spellpower"] != null) spellcaster.power = RPNEvaluator.RPNEvaluator.Evaluate(attribute["spellpower"].ToString(), d);
-            if (attribute["speed"] != null) speed = RPNEvaluator.RPNEvaluator.Evaluate(attribute["speed"].ToString(), d);
-        }
+        if (PlayerClass == null) return;
+        JProperty pClass = (JProperty)PlayerClass;
+        //att["sprite"];
+        if(pClass.Value["health"] != null) hp.SetMaxHP(RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["health"].ToString(), d));
+        if (pClass.Value["mana"] != null) spellcaster.max_mana = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["mana"].ToString(), d);
+        if (pClass.Value["mana"] != null) spellcaster.mana = Mathf.Min(spellcaster.mana, spellcaster.max_mana);
+        if (pClass.Value["mana_regeneration"] != null) spellcaster.mana_reg = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["mana_regeneration"].ToString(), d);
+        if (pClass.Value["spellpower"] != null) spellcaster.power = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["spellpower"].ToString(), d);
+        if (pClass.Value["speed"] != null) speed = RPNEvaluator.RPNEvaluator.Evaluate(pClass.Value["speed"].ToString(), d);
     }
 
     void Update()
