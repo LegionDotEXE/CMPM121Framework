@@ -127,7 +127,7 @@ public class RewardScreenManager : MonoBehaviour
             if (shouldShow && GameManager.Instance.state == GameManager.GameState.WAVEEND)
             {
                 GenerateReward();
-                if (GameManager.Instance.wave % 1 == 0)
+                if (GameManager.Instance.wave % 3 == 0)
                     GenerateRelicReward();
                 else
                     HideRelicUI();
