@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
         ScaleStats(ClassInfo.Instance.GetClass(ClassInfo.Instance.selectedClass));
         spellcaster.mana = spellcaster.max_mana;
 
+        healthui.SetHealth(hp);
         manaui.SetSpellCaster(spellcaster);
         spellui.SetSpell(spellcaster.spell, spellcaster.activeSpellIndex);
     }
