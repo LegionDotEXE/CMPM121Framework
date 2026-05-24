@@ -111,16 +111,20 @@ public class ClassSelectorMenu : MonoBehaviour
         classChosen = true;
         ClassInfo.Instance.selectedClass = className;
 
-        // change player sprite using SpriteRenderer
         JToken classValue = ((JProperty)ClassInfo.Instance.GetClass(className)).Value;
         if (classValue["sprite"] != null)
         {
             int spriteID = classValue["sprite"].ToObject<int>();
-            SpriteRenderer sr = GameManager.Instance.player.GetComponentInChildren<SpriteRenderer>();
-            if (sr == null)
-                Debug.LogError("SpriteRenderer not found on player");
-            else
-                sr.sprite = GameManager.Instance.playerSpriteManager.Get(spriteID);
+
+            SpriteRenderer[] allSR = GameManager.Instance.player.GetComponentsInChildren<SpriteRenderer>(true);
+            foreach (SpriteRenderer s in allSR)
+            {
+                if (s.gameObject.name == "tilemap_packed_178")
+                {
+                    s.sprite = GameManager.Instance.playerSpriteManager.Get(spriteID);
+                    break;
+                }
+            }
         }
 
         //int spriteID = ((JProperty)ClassInfo.Instance.GetClass(className)).Value["sprite"].ToObject<int>();
