@@ -92,5 +92,46 @@
             "type": "gain-mana",
             "amount": "2"
         }
+    },
+    {
+    "name": "Book of Argo",
+    "sprite": 10,
+    "trigger": {
+      "description": "When you have not taken damage yet in this wave",
+      "type": "take-damage"
+    },
+    "effect": {
+      "description": "you gain 1000 mana.",
+      "type": "gain-mana",
+      "amount": "1000"
+
     }
+  },
+  {
+    "name": "Optic Ruby Amulet",
+    "sprite": 7,
+    "trigger": {
+      "description": "When you cast a spell",
+      "type": "cast-spell"
+    },
+    "effect": {
+      "description": "Your speed increases.",
+      "type": "gain-speed",
+      "amount": "150"
+    }
+  },
+  {
+    "name": "Orb of Lazarus",
+    "sprite": 13,
+    "trigger": {
+      "description": "When you have less than 20 mana",
+      "type": "low-mana",
+      "amount": "20"
+    },
+    "effect": {
+      "description": "your mana is restored to 100.",
+      "type": "gain-mana",
+      "amount": "100"
+    }
+  }
 ]

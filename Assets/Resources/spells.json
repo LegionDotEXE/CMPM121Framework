@@ -76,6 +76,24 @@
        "damage_multiplier": "0.75",
        "mana_adder": "10",
        "projectile_trajectory": "homing"
-   }
-
+   },
+   "freeze": {
+      "name": "freeze",
+      "description": "freezes your enemies in their tracks, stops them from moving",
+      "mana_adder": "50"
+    },
+    "shield": {
+      "name": "shield",
+      "description": "provides a little protection bubble around you for 5-10 seconds every 15 seconds that will make you invincible to enemies",
+      "delay": "15",
+      "damage_to_player": "0",
+      "mana_adder": "50"
+    },
+    "invisibility": {
+      "name": "invisibility",
+      "description": "turns your player invisible, making you unseeable to enemies",
+      "delay": "30",
+      "visibility": "false",
+      "mana_adder": "75"
+    }
 }
