@@ -28,7 +28,7 @@ public class RewardScreenManager : MonoBehaviour
         GameObject message = new GameObject("Reward Message");
         message.transform.SetParent(rewardUI.transform, false);
         messageText = message.AddComponent<TextMeshProUGUI>();
-        messageText.alignment = TextAlignmentOptions.Center;
+        messageText.alignment = TextAlignmentOptions.Center - 5;
         messageText.fontSize = 32;
         messageText.color = Color.black;
 
@@ -66,7 +66,7 @@ public class RewardScreenManager : MonoBehaviour
         GameObject relicHeader = new GameObject("Relic Header");
         relicHeader.transform.SetParent(rewardUI.transform, false);
         relicHeaderText = relicHeader.AddComponent<TextMeshProUGUI>();
-        relicHeaderText.alignment = TextAlignmentOptions.Center;
+        relicHeaderText.alignment = TextAlignmentOptions.Center - 10;
         relicHeaderText.fontSize = 24;
         relicHeaderText.color = Color.black;
         relicHeaderText.text = "Choose a Relic:";

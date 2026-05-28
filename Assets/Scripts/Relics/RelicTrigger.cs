@@ -145,6 +145,21 @@ public class OnWaveStartTrigger : RelicTrigger
     }
 }
 
+public class OnWaveEndTrigger : RelicTrigger
+{
+    public override void Register()
+    {
+        EventBus.Instance.OnWaveEnd += HandleWaveEnd;
+    }
+    public override void Unregister()
+    {
+        EventBus.Instance.OnWaveEnd -= HandleWaveEnd;
+    }
+    void HandleWaveEnd(int waveNumber)
+    {
+        OnTriggered?.Invoke();
+    }
+}
 public class  OnManaCheckTrigger : RelicTrigger 
 {
     public override void Register()

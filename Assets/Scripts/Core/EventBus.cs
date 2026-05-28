@@ -20,7 +20,7 @@ public class EventBus
     public event Action<Vector3, Damage> OnPlayerDamaged;
     public event Action<GameObject> OnEnemyKilled;
     public event Action OnSpellCast;
-    
+    public event Action<int> OnWaveEnd;
     public void DoDamage(Vector3 where, Damage dmg, Hittable target)
     {
         OnDamage?.Invoke(where, dmg, target);
@@ -52,6 +52,10 @@ public class EventBus
         OnWaveStart?.Invoke(waveNumber);
     }
 
+    public void DoWaveEnd(int waveNumber)
+    {
+        OnWaveEnd?.Invoke(waveNumber);
+    }
     public event Action<int> OnManaCheck;
     public void DoManaCheck(int currentMana)
     {

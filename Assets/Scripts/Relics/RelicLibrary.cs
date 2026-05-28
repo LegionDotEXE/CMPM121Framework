@@ -87,6 +87,8 @@ public class RelicLibrary
             //    return new OnMoveTrigger();
             case "wave-start":
                 return new OnWaveStartTrigger();
+            case "wave-end":
+                return new OnWaveEndTrigger();
             case "low-mana":
                 return new OnManaCheckTrigger();
             default:
