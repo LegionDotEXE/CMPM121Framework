@@ -11,13 +11,17 @@ public class SpellStats
     public List<ValueModifier> speedMods = new List<ValueModifier>();
     public List<ValueModifier> lifetimeMods = new List<ValueModifier>();
 
+    //cooldown
+    public float last_cast;
     // behavior flags
     public int isSplitter = 0;
     public float splitAngle = 10f;
 
     public int isDoubler = 0;
     public float doubleDelay = 0.5f;
-     
+
+    public bool isFreeze = false;
+    public bool isInvisibility = false;
 
     // trajectory override
     public string trajectoryOverride = null;

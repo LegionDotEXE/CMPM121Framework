@@ -46,7 +46,6 @@ public class EnemySpawner : MonoBehaviour
         //store enemy info
         string enemyData = File.ReadAllText("./Assets/Resources/enemies.json");
         enemyConfig = JsonConvert.DeserializeObject<List<Enemy>>(enemyData);
-        
     }
 
     // Update is called once per frame

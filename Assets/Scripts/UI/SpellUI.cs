@@ -45,7 +45,7 @@ public class SpellUI : MonoBehaviour
     void Update()
     {
         if (spell == null) return;
-        //if(GameManager.Instance.state == GameManager.GameState.INWAVE) spell.SetAttributes(spell.GetName());
+        if(GameManager.Instance.state == GameManager.GameState.INWAVE) spell.SetAttributes(spell.GetName());
         if (Time.time > last_text_update + UPDATE_DELAY)
         {
             manacost.text = spell.GetManaCost().ToString();
@@ -53,7 +53,7 @@ public class SpellUI : MonoBehaviour
             last_text_update = Time.time;
         }
         
-        float since_last = Time.time - spell.last_cast;
+        float since_last = Time.time - spell.stats.last_cast;
         float perc;
         if (since_last > spell.GetCooldown())
         {

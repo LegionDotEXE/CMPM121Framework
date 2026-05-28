@@ -325,6 +325,14 @@ public class SpellBuilder
             if (number != 0) spell.stats.isSplitter += number;
             else spell.stats.isSplitter++;
         }
+        else if (modName == "freezing")
+        {
+            spell.stats.isFreeze = true;
+        }
+        else if (modName == "vanishing")
+        {
+            spell.stats.isInvisibility = true;
+        }
     }
 
     // generate a completely random spell
@@ -340,7 +348,7 @@ public class SpellBuilder
         spell.SetAttributes(basePage["name"].ToString());
 
         List<JToken> jsonMods = Grimoire.Instance.modifiers;
-        string[] customMods = { "vampiric", "piercing", "rapid" };
+        string[] customMods = { "vampiric", "piercing", "rapid", "freezing", "vanishing" };
 
         int modCount = 0;
         while (Random.value < 0.6f && modCount < 3)     // 60% chance to add each one

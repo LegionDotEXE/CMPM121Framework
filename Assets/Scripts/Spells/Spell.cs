@@ -28,7 +28,7 @@ public class SpellProjectile
 [JsonObject(MemberSerialization = MemberSerialization.Fields)]
 public class Spell
 {
-    public float last_cast;
+    //public float last_cast;
     public SpellCaster owner;
     public Hittable.Team team;
     public SpellStats stats;
@@ -169,13 +169,13 @@ public class Spell
 
     public bool IsReady()
     {
-        return (last_cast + GetCooldown() < Time.time);
+        return (stats.last_cast + GetCooldown() < Time.time);
     }
 
     public virtual IEnumerator Cast(Vector3 where, Vector3 target, Hittable.Team team)
     {
         this.team = team;
-        last_cast = Time.time;
+        stats.last_cast = Time.time;
 
         Vector3 direction = target - where;
 
@@ -242,6 +242,13 @@ public class Spell
         {
             if(isPrimary) other.Damage(new Damage(GetDamage(), damage.type));
             else other.Damage(new Damage(GetSecondaryDamage(), damage.type));
+            if (stats.isInvisibility)
+            {
+                other.owner.GetComponent<SpriteRenderer>().enabled = false;
+                other.owner.GetComponent<SpriteRenderer>().color = Color.cyan;
+            }
+            if(stats.isFreeze) other.owner.GetComponent<EnemyController>().speed = 0;
+
         }
     }
 
