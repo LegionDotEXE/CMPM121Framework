@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.IO;
 
 public class RelicLibrary
@@ -86,6 +87,10 @@ public class RelicLibrary
             //    return new OnMoveTrigger();
             case "wave-start":
                 return new OnWaveStartTrigger();
+            case "wave-end":
+                return new OnWaveEndTrigger();
+            case "low-mana":
+                return new OnManaCheckTrigger();
             default:
                 return null;
         }
@@ -103,6 +108,8 @@ public class RelicLibrary
                 return new GainHPEffect(RPNEvaluator.RPNEvaluator.Evaluate(amount, GameManager.Instance.dict));
             case "gain-max-hp":
                 return new GainMaxHPEffect(RPNEvaluator.RPNEvaluator.Evaluate(amount, GameManager.Instance.dict));
+            case "gain-speed":
+                return new GainSpeedEffect(RPNEvaluator.RPNEvaluator.Evaluate(amount, GameManager.Instance.dict));
             default:
                 return null;
         }

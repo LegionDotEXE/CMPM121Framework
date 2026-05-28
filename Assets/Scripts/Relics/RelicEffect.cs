@@ -93,3 +93,18 @@ public class GainMaxHPEffect : RelicEffect
         pc.hp.SetMaxHP(pc.hp.max_hp + amount);
     }
 }
+
+public class GainSpeedEffect : RelicEffect
+{
+    int amount;
+    public GainSpeedEffect(int amount)
+    {
+        this.amount = amount;
+    }
+    public override void Apply()
+    {
+        PlayerController pc = GameManager.Instance.player.GetComponent<PlayerController>();
+        if (pc == null || pc.unit == null) return;
+        pc.speed += amount;
+    }
+}

@@ -501,6 +501,7 @@ MonoBehaviour:
   damage: {fileID: 757752468}
   highlight: {fileID: 279594428}
   dropbutton: {fileID: 426128245}
+  index: 0
 --- !u!114 &96316930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1719,6 +1720,7 @@ MonoBehaviour:
   damage: {fileID: 1860547075}
   highlight: {fileID: 1477215737}
   dropbutton: {fileID: 1528944909}
+  index: 0
 --- !u!114 &457295005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2883,6 +2885,7 @@ MonoBehaviour:
   damage: {fileID: 989605413}
   highlight: {fileID: 12506828}
   dropbutton: {fileID: 578112679}
+  index: 0
 --- !u!114 &797691356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3759,7 +3762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202924360
@@ -56266,6 +56269,7 @@ MonoBehaviour:
   damage: {fileID: 982783696}
   highlight: {fileID: 1270515289}
   dropbutton: {fileID: 672798488}
+  index: 0
 --- !u!114 &2085212186
 MonoBehaviour:
   m_ObjectHideFlags: 0
