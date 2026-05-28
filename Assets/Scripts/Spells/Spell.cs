@@ -242,13 +242,12 @@ public class Spell
         {
             if(isPrimary) other.Damage(new Damage(GetDamage(), damage.type));
             else other.Damage(new Damage(GetSecondaryDamage(), damage.type));
-            if (stats.isInvisibility)
+            if (stats.isInvisibility) other.owner.GetComponent<SpriteRenderer>().enabled = false;
+            if (stats.isFreeze)
             {
-                other.owner.GetComponent<SpriteRenderer>().enabled = false;
+                other.owner.GetComponent<EnemyController>().speed = 0;
                 other.owner.GetComponent<SpriteRenderer>().color = Color.cyan;
             }
-            if(stats.isFreeze) other.owner.GetComponent<EnemyController>().speed = 0;
-
         }
     }
 
