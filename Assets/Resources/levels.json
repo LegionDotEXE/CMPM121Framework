@@ -2,97 +2,310 @@
    {
        "name": "Easy",
        "waves": 10,
-       "spawns": [
-            {
-                "enemy": "zombie",
-                "count": "8 wave 2 * +",
-                "hp": "base 5 wave * +",
-                "delay": "0.5",
-                "sequence": [2,3,4],
-                "location": "random"
-            },
-            {
-                "enemy": "skeleton",
-                "count": "2 wave 2 / +",
-                "hp": "base 2 wave *",
-                "sequence": [2, 2],
-                "location": "random red"
-            },
-            {
-                "enemy": "warlock",
-                "count": "wave 4 /",
-                "hp": "100 25 wave * +",
-                "location": "random bone"
-            }
-        ]
+    "spawns": [
+      {
+        "enemy": "zombie",
+        "count": "8 wave 2 * +",
+        "hp": "base 5 wave * +",
+        "delay": "0.5",
+        "sequence": [ 2, 3, 4 ],
+        "location": "random"
+      },
+      {
+        "enemy": "skeleton",
+        "count": "2 wave 2 / +",
+        "hp": "base 2 wave *",
+        "sequence": [ 2, 2 ],
+        "location": "random red"
+      },
+      {
+        "enemy": "warlock",
+        "count": "wave 4 /",
+        "hp": "100 25 wave * +",
+        "location": "random bone"
+      },
+      {
+        "enemy": "Red Knight",
+        "count": "1",
+        "hp": "wave base +",
+        "delay": "5",
+        "sequence": [ 1 ],
+        "location": "random green"
+      },
+      {
+        "enemy": "fire spirit",
+        "count": "wave",
+        "hp": "base wave +",
+        "delay": "10",
+        "sequence": [ 5, 5 ],
+        "location": "random red"
+      },
+      {
+        "enemy": "water knight",
+        "count": "wave",
+        "hp": "base wave +",
+        "delay": "10",
+        "sequence": [ 3, 4, 3 ],
+        "location": "random bone"
+      },
+      {
+        "enemy": "earth knight",
+        "count": "wave*",
+        "hp": "base wave +",
+        "delay": "15",
+        "sequence": [ 1, 2, 3, 4 ],
+        "location": "random bone"
+      },
+      {
+        "enemy": "fairy",
+        "count": "wave",
+        "hp": "base wave +",
+        "delay": "7",
+        "sequence": [ 1, 5, 4 ],
+        "location": "random green"
+      }
+    ]
    },
-   {
-       "name": "Medium",
-       "waves": 15,
-       "spawns": [
-            {
-                "enemy": "zombie",
-                "count": "10 wave 3 * +",
-                "hp": "25 wave *",
-                "delay": "0.4",
-                "sequence": [3,4,5],
-                "location": "random"
-            },
-            {
-                "enemy": "skeleton",
-                "count": "3 wave +",
-                "hp": "25 wave *",
-                "sequence": [2, 2],
-                "location": "random red"
-            },
-            {
-                "enemy": "warlock",
-                "count": "1 wave 3 / +",
-                "hp": "75 50 wave * +",
-                "damage": "base 10 +",
-                "location": "random bone"
-            },
-            {
-              "enemy": "ghost",
-              "count": "wave 2 /",
-              "hp": "base 10 wave * +",
-              "sequence": [1, 2],
-              "location": "random green"
-            }
-       ]
-   },
-   {
-       "name": "Endless",
-       "spawns": [
-            {
-                "enemy": "zombie",
-                "count": "12 wave 4 * +",
-                "hp": "15 wave *",
-                "delay": "0.35",
-                "sequence": [4,5,6],
-                "location": "random"
-            },
-            {
-                "enemy": "skeleton",
-                "count": "4 wave 2 * +",
-                "hp": "20 wave *",
-                "sequence": [2, 2],
-                "location": "random red"
-            },
-            {
-                "enemy": "warlock",
-                "count": "1 wave 5 / +",
-                "hp": "75 15 wave * +",
-                "damage": "base 5 -",
-                "location": "random bone"
-            },
-            {
-                "enemy": "medusa",
-                "count": "wave 15 /",
-                "hp": "75 50 wave * +",
-                "damage": "base 50 +",
-                "location": "random green"
-            }
-       ]
-   }
+  {
+    "name": "Medium",
+    "waves": 15,
+    "spawns": [
+      {
+        "enemy": "zombie",
+        "count": "10 wave 3 * +",
+        "hp": "25 wave *",
+        "delay": "0.4",
+        "sequence": [ 3, 4, 5 ],
+        "location": "random"
+      },
+      {
+        "enemy": "skeleton",
+        "count": "3 wave +",
+        "hp": "25 wave *",
+        "sequence": [ 2, 2 ],
+        "location": "random red"
+      },
+      {
+        "enemy": "warlock",
+        "count": "1 wave 3 / +",
+        "hp": "75 50 wave * +",
+        "damage": "base 10 +",
+        "location": "random bone"
+      },
+      {
+        "enemy": "ghost",
+        "count": "wave 2 /",
+        "hp": "base 10 wave * +",
+        "sequence": [ 1, 2 ],
+        "location": "random green"
+      },
+      {
+        "enemy": "Red Knight",
+        "count": "2",
+        "hp": "wave base +",
+        "delay": "20",
+        "sequence": [ 1 ],
+        "location": "random bone"
+      },
+      {
+        "enemy": "fire spirit",
+        "count": "wave 2 +",
+        "hp": "base wave +",
+        "delay": "15",
+        "sequence": [ 3 ],
+        "location": "random red"
+      },
+      {
+        "enemy": "water knight",
+        "count": "wave 2 +",
+        "hp": "base wave +",
+        "delay": "7",
+        "sequence": [ 10 ],
+        "location": "random bone"
+      },
+      {
+        "enemy": "earth knight",
+        "count": "wave 2 +",
+        "hp": "base wave +",
+        "delay": "8",
+        "sequence": [ 5 ],
+        "location": "random bone"
+      },
+      {
+        "enemy": "fairy",
+        "count": "wave 2 +",
+        "hp": "base wave +",
+        "delay": "3",
+        "sequence": [ 4, 2 ],
+        "location": "random green"
+      }
+    ]
+  },
+  
+    {
+      "name": "Hard",
+      "waves": 25,
+      "spawns": [
+        {
+          "enemy": "zombie",
+          "count": "5 wave 4 * +",
+          "hp": "25 wave *",
+          "delay": "5",
+          "sequence": [ 1, 2, 3 ],
+          "location": "random green"
+        },
+        {
+          "enemy": "skeleton",
+          "count": "wave 4 *",
+          "hp": "25 wave *",
+          "delay": "4",
+          "sequence": [ 2, 2 ],
+          "location": "random red"
+        },
+        {
+          "enemy": "warlock",
+          "count": "wave 5 / 1 wave 5 % - *",
+          "hp": "75 50 wave * +",
+          "damage": "base 10 +",
+          "sequence": [ 1 ],
+          "location": "random bone"
+        },
+        {
+          "enemy": "Red Knight",
+          "count": "3 wave +",
+          "hp": "200 base *",
+          "delay": "10",
+          "sequence": [ 1 ],
+          "location": "random bone"
+        },
+        {
+          "enemy": "fire spirit",
+          "count": "wave 10 * 4 *",
+          "hp": "base wave +",
+          "delay": "7",
+          "sequence": [ 10 ],
+          "location": "random red"
+        },
+        {
+          "enemy": "water knight",
+          "count": "wave 10 * 4 *",
+          "hp": "base wave +",
+          "delay": "7",
+          "sequence": [ 8 ],
+          "location": "random brown"
+        },
+        {
+          "enemy": "earth knight",
+          "count": "wave 10 * 4 *",
+          "hp": "base wave +",
+          "delay": "9",
+          "sequence": [ 5 ],
+          "location": "random brown"
+        },
+        {
+          "enemy": "fairy",
+          "count": "wave 10 * 4 *",
+          "hp": "base wave +",
+          "delay": "3",
+          "sequence": [ 6, 10, 4, 13, 7 ],
+          "location": "random green"
+        },
+        {
+          "enemy": "Medusa",
+          "count": "wave 10 * 4 *",
+          "hp": "base wave +",
+          "delay": "10",
+          "sequence": [ 2, 18, 5, 15 ],
+          "location": "random bone"
+        }
+      ]
+    },
+    {
+      "name": "Endless",
+      "spawns": [
+        {
+          "enemy": "zombie",
+          "count": "12 wave 4 * +",
+          "hp": "15 wave *",
+          "delay": "0.35",
+          "sequence": [ 4, 5, 6 ],
+          "location": "random"
+        },
+        {
+          "enemy": "skeleton",
+          "count": "4 wave 2 * +",
+          "hp": "20 wave *",
+          "sequence": [ 2, 2 ],
+          "location": "random red"
+        },
+        {
+          "enemy": "warlock",
+          "count": "1 wave 5 / +",
+          "hp": "75 15 wave * +",
+          "damage": "base 5 -",
+          "location": "random bone"
+        },
+        {
+          "enemy": "medusa",
+          "count": "wave 15 /",
+          "hp": "75 50 wave * +",
+          "damage": "base 50 +",
+          "location": "random green"
+        },
+        {
+          "enemy": "Red Knight",
+          "count": "3 wave +",
+          "hp": "200 base *",
+          "delay": "10",
+          "sequence": [ 1 ],
+          "location": "random bone"
+        },
+        {
+          "enemy": "fire spirit",
+          "count": "wave 4 *",
+          "hp": "base wave +",
+          "delay": "7",
+          "sequence": [ 10 ],
+          "location": "random red"
+        },
+        {
+          "enemy": "water knight",
+          "count": "wave 4 *",
+          "hp": "base wave +",
+          "delay": "7",
+          "sequence": [ 8 ],
+          "location": "random brown"
+        },
+        {
+          "enemy": "earth knight",
+          "count": "wave 4 *",
+          "hp": "base wave +",
+          "delay": "9",
+          "sequence": [ 5 ],
+          "location": "random brown"
+        },
+        {
+          "enemy": "fairy",
+          "count": "wave 4 *",
+          "hp": "base wave +",
+          "delay": "3",
+          "sequence": [ 6, 10, 4, 13, 7 ],
+          "location": "random green"
+        }
+      ]
+    },
+    {
+      "name": "Test",
+      "waves": 10,
+      "spawns": [
+        {
+          "enemy": "zombie",
+          "count": "1",
+          "hp": "25 wave *",
+          "delay": "5",
+          "sequence": [ 1, 2, 3 ],
+          "location": "random green"
+        }
+      ]
+    }
 ]
