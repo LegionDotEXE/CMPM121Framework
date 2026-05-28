@@ -51,4 +51,10 @@ public class EventBus
     {
         OnWaveStart?.Invoke(waveNumber);
     }
+
+    public event Action<int> OnManaCheck;
+    public void DoManaCheck(int currentMana)
+    {
+        OnManaCheck?.Invoke(currentMana);
+    }
 }

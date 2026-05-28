@@ -144,3 +144,21 @@ public class OnWaveStartTrigger : RelicTrigger
         OnTriggered?.Invoke();
     }
 }
+
+public class  OnManaCheckTrigger : RelicTrigger 
+{
+    public override void Register()
+    {
+        EventBus.Instance.OnManaCheck += HandleManaCheck;
+    }
+
+    public override void Unregister()
+    {
+        EventBus.Instance.OnManaCheck -= HandleManaCheck;
+    }
+
+    void HandleManaCheck(int currentMana)
+    {
+        OnTriggered?.Invoke();
+    }
+}
